@@ -1,0 +1,63 @@
+Test elcgpwr() by running elcgdots.
+This test requires X Windows.
+
+sudo apt-get install libx11-dev
+
+The parameter is a unique password.
+
+Usage: elcgdots password
+
+Example:
+
+./elcgdots abcd
+./elcgdots efgh
+
+The tst.sh script runs 4 instances of elcgdots in parallel.
+There are no parameters.
+
+./tst.sh
+
+The output from elcgdots is a random bitmap pattern of pixels 
+on an X Windows screen, 512x512.  To quit press 'q'.
+
+The output from tst.sh is 4 random bitmap patterns of pixels 
+on X Windows screens, 512x512.  To quit press 'q' on each screen.
+
+------------------------------------------------------
+
+Raw Dieharder Test:  tstdie.sh
+Dieharder has to be installed first.
+
+sudo apt-get install libdieharder-dev
+sudo apt-get install dieharder
+
+tstdie.sh illustrates how a raw stream of random data is piped
+into a down stream test suite.
+
+./tstdie.sh
+
+The output from tstdie.sh is a summary report.
+This is a long running test.  To interrupt press CTRL-C.
+The first test takes a half minute to print a report.
+
+This is a randomness test for the random number generator in
+this repository.
+
+------------------------------------------------------
+
+Test the speed of the elcg random number generator by running
+elcgtim.
+
+There are no parameters.
+
+./elcgtim
+
+The output is a timing comparison in ticks.
+
+------------------------------------------------------
+
+Read README.elcg for general information about the elcg
+random number generator.
+Read INSTALL for installing the elcg package.
+The website for elcg is at https://aquila62.github.io.
+

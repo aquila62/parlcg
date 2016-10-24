@@ -1,0 +1,66 @@
+parelcg is a simulation of running the elcg random number generator
+(RNG) in parallel on a supercomputer.  An unlimited number of instances
+of the elcg random number generator can run in parallel on a
+supercomputer.  I will explain the conditions favorable for running
+elcg in parallel.  I will follow by listing the other random
+number generators under my account that have the same features to
+run a generator in parallel on a supercomputer.
+
+Large footprint.
+
+elcg has a large footprint.  In the aquila62/elcg repository,
+elcg uses a state array of 1024 states.  The size of the state
+array is flexible.  In this repository, elcg uses a state array
+of 16384 states.  This repository illustrates the viability of
+increasing the size of the state array without sacrificing
+performance.
+
+The state in elcg is 64 bits.  elcg in this repository is
+initialized with 16384 unique 64-bit non-zero numbers.  This gives
+elcg a possible period length of 61937 digits, the factorial of
+16384.
+
+One way to test the period length is to build a database, where the
+key is two successive generations of elcg output.  If there are no
+duplicate keys after hundreds of trillions of generations, then the
+period length is at least as long as the test.  If the test fails,
+then increase the size of the key to three successive generations
+of elcg output, and rerun the test.
+
+A supercomputer with 1 million nodes can easily initialize
+1 million copies of elcg to 1 million unique initialization states,
+using a state array of 16384 states in each copy.
+
+To illustrate this concept, this repository includes elcgdots.c,
+a program that prints random dots on an X Windows screen.  The
+script, tst.sh, runs 4 copies of elcgdots in parallel, each with
+a unique password.  The password is used to initialize the random
+number generator.
+
+Here is what tst.sh looks like:
+
+#!/bin/bash
+elcgdots abcd &
+elcgdots efgh &
+elcgdots ijkl &
+elcgdots mnop &
+
+Each copy of elcgdots has a unique password.  Each copy of elcgdots
+runs in parallel in the background.  To terminate the test, press
+the 'q' key to delete each screen.
+
+Other random number generators.
+
+The following random number generators use the Bays-Durham shuffle
+to extend the period length of the generator.
+
+aquila62/elcg
+aquila62/eegl
+aquila62/etaus
+aquila62/ekiss
+aquila62/erand
+aquila62/erandu
+
+Each one of these generators can easily be adapted to run in
+parallel on a supercomputer.  This repository illustrates how
+each one can be adapted to run in parallel.
